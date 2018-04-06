@@ -1,0 +1,2 @@
+export const START_REQUEST='START_REQUEST';
+export const GET_FORM1_DATA='GET_FORM1_DATA';

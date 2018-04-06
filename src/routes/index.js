@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import {Scene, Router} from 'react-native-router-flux';
 import Home from '../containers'
+import ViewData from '../containers/ViewData'
 import LoadImage from '../containers/LoadImage'
 import ReduxFormEmail from '../containers/ReduxFormEmail';
 class AppRoute  extends Component{
@@ -11,9 +12,10 @@ class AppRoute  extends Component{
         hideNavBar="hideNavBar"
         hideTabBar="hideTabBar"
         panHandlers={null}>
-        <Scene  key="Home" component={Home} />
+        <Scene initial  key="Home" component={Home} />
         <Scene  key="LoadImage" component={LoadImage} />
-        <Scene initial key="ReduxFormEmail" component={ReduxFormEmail} />
+        <Scene  key="ReduxFormEmail" component={ReduxFormEmail} />
+        <Scene   key="ViewData" component={ViewData} />
         
       </Scene>
     )

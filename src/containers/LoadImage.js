@@ -15,19 +15,7 @@ import AppHeader from '../components/AppHeader'
 import { Container, Item, Input,Picker, Header, Body, Content, Title, Button, Text } from 'native-base';
 import { Field,reduxForm } from 'redux-form';
 import styles from './Home.styles';
-import DispatchButton from '../components/DispatchButton'
-
-//Congiguration for image Upload 
-var options = {
-    title: 'Select Avatar',
-    customButtons: [
-      {name: 'fb', title: 'Choose Photo from Facebook'},
-    ],
-    storageOptions: {
-      skipBackup: true,
-      path: 'images'
-    }
-  };
+import { Actions } from 'react-native-router-flux';
 
 const validate = values => {
   const error= {};
@@ -76,11 +64,19 @@ handleOnDrop(){
     });
     
 }
+_gotoNextPage(){
+  if(this.state.avatarSource===null){
+    alert('upload the image')
+  }
+  else{
+    this.props.fetchForm2Data(this.state.avatarSource)
+  }
+}
 
 render(){
     return(
       <Container>
-        <AppHeader/>
+        <AppHeader isBack="true" title="Image Upload" onPress={()=>{Actions.pop()}}/>
         <Content padder>
         <Text>Upload Image</Text>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      
         <TouchableOpacity style={{justifyContent:'center',alignItems:'center'}}  onPress={()=>{this.handleOnDrop()}}>
@@ -90,9 +86,7 @@ render(){
                  <Image style={styles.uploadImage} source={{uri:this.state.avatarSource}}/>
             }
         </TouchableOpacity>
-            
-        <Button block primary
-              >                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          
+        <Button block primary onPress={()=>{this._gotoNextPage()}}>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          
               <Text>
               Submit
             </Text>
@@ -103,10 +97,7 @@ render(){
   }
 }
 
-const ReduxForm2= reduxForm({
-  form: 'ReduxForm1',
-  validate
-})(LoadImage)
+
 
 const mapStateToProps=state=>{
   return{
@@ -116,4 +107,4 @@ const mapStateToProps=state=>{
   function mapDispatchToProps(dispatch){
     return bindActionCreators(ActionCreators,dispatch)
   }
-  export default connect(mapStateToProps,mapDispatchToProps)(ReduxForm2)
+  export default connect(mapStateToProps,mapDispatchToProps)(LoadImage)

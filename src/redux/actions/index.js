@@ -1,4 +1,4 @@
-import * as countriesAction from './countryActions'
+import * as registerActions from './registrationAction'
 export const ActionCreators=Object.assign({},
-  countriesAction,
+  registerActions,
 )

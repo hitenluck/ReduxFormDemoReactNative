@@ -17,6 +17,10 @@ export default StyleSheet.create({
     width:80,
     fontSize:14,
   },
+  infoText:{
+    fontSize:14,
+    fontWeight:'bold'
+  },
   uploadImage:{
     height:80,
     width:80,

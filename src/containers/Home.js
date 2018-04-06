@@ -1,5 +1,4 @@
 
-
 import React, { Component } from 'react';
 import {
   View,
@@ -13,31 +12,56 @@ import AppHeader from '../components/AppHeader'
 import { Container, Item, Input,Picker, Header, Body, Content, Title, Button, Text } from 'native-base';
 import { Field,reduxForm } from 'redux-form';
 import styles from './Home.styles';
-import DispatchButton from '../components/DispatchButton'
+
 const validate = values => {
   const error= {};
-  error.email= '';
+  
   error.lname= '';
   error.fname='';
-  var ema = values.email;
-  var nm = values.lname;
+  error:addr='';
+  error:state='';
+  error:city='';
+  error.state='';
+  var fname  = values.fname;
+  var lname=values.lname;
+  var addr=values.addr;
   var name=values.fname;
-  if(values.email === undefined){
-    ema = '';
-  }
+  var Country=values.selectCountry;
+  var city=values.city;
+  var state=values.state;
+
   if(values.fname === undefined){
-    name = '';
+    fname = '';
   }
+  if(values.addr === undefined){
+    addr = '';
+  }
+  if(values.Country === 'Select'){
+    Country = '';
+  }
+
    if(!values.fname){
-    error.fname="Require"
+    error.fname="*"
+  }
+  if(!values.addr){
+    error.addr="*"
+  }
+  if(!values.state){
+    error.state="*"
+  }
+  if(!values.city){
+    error.city="*"
+  }
+  if(values.Country===''){
+    error.Country="*"
   }
   
-  if(ema.length < 8 && ema !== ''){
-    error.email= 'too short';
+  
+  if(fname.length < 4 && fname !== ''){
+    error.fname= 'too short';
   }
-  if(!ema.includes('@') && ema !== ''){
-    error.email= '@ not included';
-  }
+ 
+  
   /*if(nm.length > 8){
     error.name= 'max 8 characters';
   }*/
@@ -56,15 +80,14 @@ class Home extends Component{
      isReady: false
    };
    this.renderInput = this.renderInput.bind(this);
-   this.renderVehicleSelect=this.renderVehicleSelect.bind(this);
+   this.renderCountry=this.renderCountry.bind(this);
  }
 
 
 
  submit = (values, dispatch) => {
    console.log('logs',values);
-  
-  this.props.fetchCountries(values)
+   this.props.fetchCountries(values)
 }
  renderInput({label, type, meta: { touched, error, warning },input:{onChange,...restInput} }){
     var hasError= false;
@@ -80,8 +103,9 @@ class Home extends Component{
     )
   }
   
-  renderVehicleSelect({input: { onChange, value, ...inputProps }, children, ...pickerProps }){
-   return(
+  renderCountry({input: { onChange, value, ...inputProps }, children, ...pickerProps }){
+   //alert(value)
+    return(
       <Picker
     selectedValue={ value }
     onValueChange={ value => onChange(value) }
@@ -97,14 +121,14 @@ class Home extends Component{
     const { handleSubmit } = this.props;
     return(
       <Container>
-        <AppHeader/>
+        <AppHeader title="Home" isBack='false'/>
         <Content padder>                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      
-            <Field label='Email' name="email" component={this.renderInput} />
             <Field name="fname" label="First Name" component={this.renderInput} />
             <Field name="lname" label='Last Name' component={this.renderInput} />
             <Field name="addr" label='Address' component={this.renderInput} />
-            <Field label="Country" name="selectCountry" mode="dropdown" 
-            component={this.renderVehicleSelect}>
+            <Field label="Country"  name="selectCountry" mode="dropdown" 
+            component={this.renderCountry}>
+            <Item disabled label="Select" value="Select" />
               <Item label="India" value="India" />
               <Item label="England" value="England" />
               <Item label="Australia" value="Australia" />

@@ -1,2 +1,4 @@
 export const START_REQUEST='START_REQUEST';
 export const GET_FORM1_DATA='GET_FORM1_DATA';
+export const GET_FORM2_DATA='GET_FORM2_DATA';
+export const GET_FORM3_DATA='GET_FORM3_DATA';
